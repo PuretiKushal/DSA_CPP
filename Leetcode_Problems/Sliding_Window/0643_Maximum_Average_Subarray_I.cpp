@@ -2,9 +2,8 @@
 Problem: 643. Maximum Average Subarray I
 Pattern: Fixed Size Sliding Window
 Difficulty: Easy
-
-Time Complexity: O(n)
-Space Complexity: O(1)
+Time Complexity: O(n) (2 for loops; one from 0 to k and another from k to n --> 0 to n --> O(n))
+Space Complexity: O(1) (Only 4 variables are used --> O(4) --> O(1))
 
 Key Idea:
 - Calculate first window sum (first for loop)
