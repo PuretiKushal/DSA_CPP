@@ -8,12 +8,12 @@ void explainSet()
     s.insert(2); //{2}
     s.insert(1); //{1,2}
     s.insert(44); //{1,2,44}
-    s.insert(44); //{1,2,44} won't be inserted if it is not unique
+    s.insert(44); //{1,2,44} - won't be inserted if it is not unique
     s.insert(13); //{1,2,13,44}
 
     auto it=s.find(1);
     cout << *(it) << endl;
-    s.count(44); //always returns 1 for any element as it allows only unique
+    s.count(44); //always returns 1 for any element if it is present, as it allows only unique
 
     auto it1=s.find(1);
     auto it2=s.find(13);
@@ -33,6 +33,22 @@ void explainSet()
     {
         cout << i << " ";
     }
+
+    cout << s.size() << endl; //returns the number of elements in the set
+
+    if(s.empty())
+    {
+        cout << "Set is empty";
+    } //returns true if the set is empty
+
+    s.clear(); //deletes all elements from the set
+
+    if(s.find(44)!=s.end())
+    {
+        cout << "44 found";
+    } //another way to check if an element exists
+
+    cout << s.count(13); //returns 1 if present, 0 if absent - can be used to check if an element exists
     
     auto lb=s.lower_bound(44); //points to first element>=x, i.e >=44 -->44
     
