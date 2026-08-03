@@ -126,6 +126,60 @@ the recursion never ends.
 
 ---
 
+# Recursion Formula
+
+Whenever solving a recursion problem, think in this order.
+
+1.
+
+Base Case
+
+↓
+
+When should recursion stop?
+
+----------------------------
+
+2.
+
+Current Work
+
+↓
+
+What should I do for the current problem?
+
+----------------------------
+
+3.
+
+Recursive Call
+
+↓
+
+What smaller problem should recursion solve?
+
+General Structure
+
+```cpp
+return_type fun(parameters)
+{
+    // Base Case
+
+    if(condition)
+        return value;
+
+    // Current Work
+
+    ...
+
+    // Recursive Call
+
+    return fun(smaller_problem);
+}
+```
+
+---
+
 # General Structure
 
 ```cpp
@@ -274,6 +328,77 @@ Returning from Function Calls
 
 ---
 
+# Helper Function
+
+Sometimes the given function does not contain enough parameters
+for recursion.
+
+Example
+
+LeetCode provides
+
+```cpp
+bool isPalindrome(string s)
+```
+
+But recursion also needs
+
+- Left Pointer
+- Right Pointer
+
+So create another helper function.
+
+```cpp
+bool check(string &s,int l,int r)
+```
+
+The given function simply starts the recursion.
+
+```cpp
+return check(s,0,s.size()-1);
+```
+
+This pattern is very common in Trees,
+Graphs and Backtracking.
+
+---
+
+# Pass by Reference
+
+Without '&'
+
+```cpp
+vector<char> s
+```
+
+↓
+
+A copy of the vector is created.
+
+Changes do not affect the original variable.
+
+----------------------------
+
+With '&'
+
+```cpp
+vector<char>& s
+```
+
+↓
+
+No copy is created.
+
+The function directly works on the original variable.
+
+This is preferred for large objects like
+
+- vector
+- string
+- TreeNode
+
+---
+
 # return vs break
 
 Many beginners confuse these.
@@ -363,6 +488,16 @@ Base Case
 
 2.
 
+What should I do for the current problem?
+
+↓
+
+Current Work
+
+----------------------------
+
+3.
+
 How can I reduce the current problem into a smaller one?
 
 ↓
@@ -371,7 +506,7 @@ Recursive Call
 
 ----------------------------
 
-3.
+4.
 
 What should happen BEFORE the recursive call?
 
@@ -381,7 +516,7 @@ Going Down
 
 ----------------------------
 
-4.
+5.
 
 What should happen AFTER the recursive call?
 
@@ -403,37 +538,11 @@ Coming Back Up
 
 ❌ Confusing return with break.
 
+❌ Forgetting to return the recursive call.
+
+❌ Passing large objects by value instead of reference.
+
 ❌ Not understanding the call stack.
-
----
-
-# Problems To Solve
-
-## Easy
-
-- [ ] Factorial
-- [ ] Sum of First N Numbers
-- [ ] Print 1 to N
-- [ ] Print N to 1
-- [ ] Fibonacci
-
----------------------------------------
-
-## Medium
-
-- [ ] Reverse Array
-- [ ] Check Palindrome
-- [ ] Recursive Binary Search
-
----------------------------------------
-
-## Advanced
-
-- [ ] Subsequences
-- [ ] Combination Sum
-- [ ] Permutations
-- [ ] N Queens
-- [ ] Sudoku Solver
 
 ---
 
@@ -445,9 +554,18 @@ Coming Back Up
 
 ✔ Think in terms of smaller subproblems.
 
+✔ Every recursion problem can be divided into:
+- Base Case
+- Current Work
+- Recursive Call
+
 ✔ Everything before the recursive call executes while going DOWN.
 
 ✔ Everything after the recursive call executes while coming BACK UP.
+
+✔ Helper functions are used when recursion needs extra parameters.
+
+✔ Pass vectors and strings by reference whenever possible.
 
 ✔ Trees are simply recursion applied to nodes.
 
@@ -457,4 +575,4 @@ Coming Back Up
 
 Status
 
-🟨 In Progress
+🟩 Completed (Basic Recursion)
