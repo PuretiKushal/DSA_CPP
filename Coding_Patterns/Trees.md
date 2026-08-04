@@ -2,172 +2,366 @@
 
 # What is a Tree?
 
-A Tree is a hierarchical (non-linear) data structure.
+A Tree is a non-linear data structure used to represent hierarchical relationships between data.
 
-Unlike Arrays and Linked Lists, where elements are arranged in a line,
-Trees organize data in parent-child relationships.
+Unlike an array or linked list, elements in a tree are connected through parent-child relationships.
 
-Example:
+Example
 
+```
         A
-      /   \
-     B     C
-    / \   / \
-   D   E F   G
-
-A is the Root.
-
-B and C are children of A.
-
-D, E, F and G are leaf nodes.
+       / \
+      B   C
+     / \
+    D   E
+```
 
 ---
 
-# Why Trees?
+# Why Do We Need Trees?
 
-Arrays
+Arrays and linked lists store data linearly.
 
-10 20 30 40
+```
+1 → 2 → 3 → 4 → 5
+```
 
-↓
+They tell us the order of elements but not their relationships.
 
-Linear
+For example, if we want to represent a family tree,
 
-----------------------------
+```
+        Grandpa
+        /     \
+     Dad      Uncle
+    /   \
+ You   Sister
+```
 
-Linked List
+an array cannot naturally represent these parent-child connections.
 
-10 → 20 → 30 → 40
-
-↓
-
-Linear
-
-----------------------------
-
-Tree
-
-        A
-      /   \
-     B     C
-    / \
-   D   E
-
-↓
-
-Hierarchical
-
-One node can have multiple children.
+Trees solve this problem by storing links between nodes.
 
 ---
 
-# Basic Terminology
+# Tree Terminology
 
-Root
-- The first node of the tree.
+## Node
 
-Parent
-- A node having one or more children.
+Each element of a tree is called a Node.
 
-Child
-- A node connected below a parent.
+Example
 
-Leaf Node
-- A node having no children.
+```
+        10
+       /  \
+      5    20
+```
 
-Internal Node
-- A node having at least one child.
+10, 5 and 20 are nodes.
 
-Sibling
-- Nodes having the same parent.
+---
 
-Ancestor
-- Any node above the current node.
+# Root Node
 
-Descendant
-- Any node below the current node.
+The topmost node of a tree.
 
-Edge
-- Connection between two nodes.
+Every tree has exactly one root.
 
-Path
-- Sequence of nodes connected by edges.
+```
+        10
+       /  \
+      5    20
+```
 
-Degree
-- Number of children of a node.
+Root = 10
+
+---
+
+# Parent and Child
+
+If a node is directly connected to another node below it,
+
+the upper node is the Parent,
+
+the lower node is the Child.
+
+```
+      10
+     /
+    5
+```
+
+Parent of 5 = 10
+
+Child of 10 = 5
+
+---
+
+# Leaf Node
+
+A node with no children.
+
+```
+        10
+       /  \
+      5    20
+     /
+    2
+```
+
+Leaf Nodes = 2, 20
 
 ---
 
 # Binary Tree
 
-A Binary Tree is a tree where every node has at most two children.
+A Binary Tree is a tree in which every node can have at most two children.
 
-Possible children:
+```
+        10
+       /  \
+      5    20
+```
 
-0
+Children are usually called
 
-1
-
-2
-
-Not more than 2.
+- Left Child
+- Right Child
 
 ---
 
-# Height
+# Representation in C++
 
-Height of a node
+```cpp
+struct TreeNode
+{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+};
+```
+
+Every TreeNode stores
+
+- Value
+- Pointer to left child
+- Pointer to right child
+
+---
+
+# Why Are left and right Pointers?
+
+Suppose we write
+
+```cpp
+TreeNode left;
+```
+
+inside the structure.
+
+Now every TreeNode would contain another complete TreeNode.
+
+That new TreeNode would again contain another TreeNode.
+
+This process would continue forever.
+
+To avoid infinite nesting, we store only the memory address of the child node.
+
+```cpp
+TreeNode *left;
+TreeNode *right;
+```
+
+A pointer stores only the address of another TreeNode.
+
+---
+
+# Pointer Meaning
+
+```cpp
+TreeNode *root;
+```
+
+Creates only a pointer variable.
+
+No TreeNode exists yet.
+
+---
+
+```cpp
+TreeNode root;
+```
+
+Creates one TreeNode object.
+
+---
+
+```cpp
+new TreeNode();
+```
+
+Creates one TreeNode object on the heap and returns its memory address.
+
+---
+
+```cpp
+TreeNode *root = new TreeNode();
+```
+
+Creates
+
+- one pointer variable (`root`)
+- one TreeNode object
+
+The pointer stores the address of the TreeNode.
+
+---
+
+# Stack vs Heap
+
+Local variables are stored on the Stack.
+
+Example
+
+```cpp
+TreeNode root;
+```
+
+The object is automatically destroyed when the function ends.
+
+---
+
+Objects created using
+
+```cpp
+new TreeNode();
+```
+
+are stored on the Heap.
+
+They continue to exist until explicitly deleted.
+
+---
+
+# The Arrow Operator (->)
+
+The arrow operator accesses a member of the object pointed to by a pointer.
+
+```cpp
+root->val
+```
+
+is exactly the same as
+
+```cpp
+(*root).val
+```
+
+Example
+
+```cpp
+root->left->right->val
+```
+
+Mental Model
+
+```
+Start at root
 
 ↓
 
-Longest path from that node to any leaf.
-
-Leaf node height = 0
-
----
-
-# Depth
-
-Depth of a node
+Follow left pointer
 
 ↓
 
-Distance from the Root to that node.
+Follow right pointer
 
-Root depth = 0
+↓
 
----
+Read val
+```
 
-# Level
+Every `->` means:
 
-Level = Depth + 1
-
-(Some books start levels from 0.)
-
----
-
-# Important Properties
-
-If a tree has N nodes,
-
-Edges = N - 1
-
-Every node except the Root has exactly one parent.
+**Follow the pointer, then access a member.**
 
 ---
 
-# Topics To Learn
+# Multiple Pointers
 
-- Tree Representation
-- DFS
-- BFS
-- Tree Traversals
-- Binary Search Tree
-- Recursion on Trees
-- Advanced Tree Problems
+```cpp
+TreeNode *root = new TreeNode();
+
+TreeNode *p = root;
+```
+
+No new TreeNode is created.
+
+Only another pointer is created.
+
+Both pointers store the same memory address.
+
+Changing the node through one pointer affects the same node.
 
 ---
 
-# Notes
+# Mental Model
 
-(To be updated as I learn.)
+Whenever you see
+
+```cpp
+root->left->right->left->val
+```
+
+Think
+
+```
+Start from root
+
+↓
+
+Go to left child
+
+↓
+
+Go to right child
+
+↓
+
+Go to left child
+
+↓
+
+Read value
+```
+
+Do not memorize the syntax.
+
+Always visualize moving from one node to another using pointers.
+
+---
+
+# Key Takeaways
+
+✔ Trees represent hierarchical relationships.
+
+✔ Every node stores a value and links to its children.
+
+✔ `TreeNode *left` stores an address, not a complete node.
+
+✔ `TreeNode *root;` creates only a pointer.
+
+✔ `new TreeNode()` creates a TreeNode on the heap.
+
+✔ `->` means follow the pointer and access a member.
+
+✔ Multiple pointers can point to the same TreeNode.
+
+✔ Always visualize memory instead of memorizing syntax.
+
+---
+
+Status
+
+🟨 In Progress
