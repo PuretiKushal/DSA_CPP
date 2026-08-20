@@ -31,7 +31,13 @@ void explainVector()
     v.size(); //returns size
     v.pop_back(); //pops last element
 
+    //To insert an element at a particular position:
+    v1.insert(v1.begin()+2,15); //inserts 15 at position begin+2
 
+    //To concatenate two vectors:
+    //let them be a1 and a2 and we want to create a new vector ans, which is concatenation of a1 and a2
+    ans=a1; //copying a1 into ans
+    ans.insert(ans.end(),a2.begin(),a2.end()); //inserts a2 at the end of ans
 }
 int main()
 {
