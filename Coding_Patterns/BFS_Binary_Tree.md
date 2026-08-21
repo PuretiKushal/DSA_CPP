@@ -142,17 +142,7 @@ node + position
 
 --------------------------------------------------
 
-PROBLEMS DONE:
 
-102 → Level Order
-199 → Right Side View
-637 → Average of Levels
-515 → Largest Value in Each Row
-1161 → Maximum Level Sum
-513 → Bottom Left Value
-103 → Zigzag Level Order
-
---------------------------------------------------
 
 KEY THING TO REMEMBER:
 
