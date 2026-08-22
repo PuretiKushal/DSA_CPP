@@ -1,45 +1,34 @@
-/*
-BFS — Binary Tree
+# BFS — Breadth First Search
 
-PATTERN:
-- BFS = Breadth First Search.
-- Traverses the tree level by level.
-- Main data structure = queue (FIFO).
+## What is BFS?
 
---------------------------------------------------
+BFS (Breadth First Search) explores nodes level by level.
 
-BASIC BFS:
+In a tree:
 
-queue<TreeNode*> q;
-q.push(root);
+        1
+       / \
+      2   3
+     / \
+    4   5
 
-while(!q.empty())
-{
-    TreeNode* p=q.front();
-    q.pop();
+BFS order:
 
-    // process p
+1 → 2 → 3 → 4 → 5
 
-    if(p->left!=NULL)
-        q.push(p->left);
+BFS usually uses a queue.
 
-    if(p->right!=NULL)
-        q.push(p->right);
-}
+Queue → FIFO (First In, First Out)
 
---------------------------------------------------
+---
 
-LEVEL-BY-LEVEL BFS:
+## Basic BFS
 
-If the question asks something for EACH LEVEL:
+    queue<TreeNode*> q;
 
-n=q.size();
+    q.push(root);
 
-while(!q.empty())
-{
-    n=q.size();
-
-    for(i=0;i<n;i++)
+    while(!q.empty())
     {
         TreeNode* p=q.front();
         q.pop();
@@ -47,108 +36,339 @@ while(!q.empty())
         // process p
 
         if(p->left!=NULL)
+        {
             q.push(p->left);
+        }
 
         if(p->right!=NULL)
+        {
             q.push(p->right);
+        }
     }
-}
 
-IMPORTANT:
-- n = number of nodes in the current level.
-- Take n BEFORE processing the level.
-- Children pushed during this loop belong to the next level.
+Basic queue operations:
 
---------------------------------------------------
+q.push(x) → add to queue
 
-WHAT TO USE:
+q.front() → get first element
+
+q.pop() → remove first element
+
+q.empty() → check whether queue is empty
+
+---
+
+## Level-by-Level BFS
+
+If the problem needs information for each level, use:
+
+    n=q.size();
+
+    for(i=0;i<n;i++)
+
+Example:
+
+    while(!q.empty())
+    {
+        n=q.size();
+
+        for(i=0;i<n;i++)
+        {
+            TreeNode* p=q.front();
+            q.pop();
+
+            // process p
+
+            if(p->left!=NULL)
+            {
+                q.push(p->left);
+            }
+
+            if(p->right!=NULL)
+            {
+                q.push(p->right);
+            }
+        }
+    }
+
+Important:
+
+n = number of nodes in the current level.
+
+Take n BEFORE processing the level.
+
+Children added during the loop belong to the next level.
+
+---
+
+## When to Think BFS
+
+Think BFS when the problem involves:
+
+- levels
+- level order
+- each row
+- leftmost/rightmost node of a level
+- sum/max/min per level
+- average per level
+- nearest / closest
+- minimum distance
+- shortest path in an unweighted graph
+
+Main idea:
+
+Level / distance → BFS is often natural.
+
+---
+
+## Common Level Operations
 
 Maximum:
-mx=max(mx,p->val);
+
+    mx=INT_MIN;
+    mx=max(mx,p->val);
 
 Minimum:
-mn=min(mn,p->val);
+
+    mn=INT_MAX;
+    mn=min(mn,p->val);
 
 Sum:
-sum=sum+p->val;
+
+    sum=0;
+    sum=sum+p->val;
 
 Count:
-count++;
 
-First node:
-if(i==0)
+    count++;
 
-Last node:
-if(i==n-1)
+First node of level:
+
+    if(i==0)
+
+Last node of level:
+
+    if(i==n-1)
 
 Average:
-sum/n
 
---------------------------------------------------
+    sum/n
 
-IF EACH LEVEL NEEDS A VECTOR:
+---
 
-vector<int> temp;
+## One Answer Per Level
 
-temp.push_back(p->val);
+If every level produces one value:
+
+    vector<int> ans;
+
+After processing the level:
+
+    ans.push_back(value);
+
+Example:
+
+    while(!q.empty())
+    {
+        n=q.size();
+        mx=INT_MIN;
+
+        for(i=0;i<n;i++)
+        {
+            TreeNode* p=q.front();
+            q.pop();
+
+            mx=max(mx,p->val);
+
+            if(p->left!=NULL)
+            {
+                q.push(p->left);
+            }
+
+            if(p->right!=NULL)
+            {
+                q.push(p->right);
+            }
+        }
+
+        ans.push_back(mx);
+    }
+
+---
+
+## Whole Level as a Vector
+
+If the answer needs all nodes of every level:
+
+    vector<vector<int>> ans;
+
+For each level:
+
+    vector<int> temp;
+
+    temp.push_back(p->val);
 
 After the level:
-ans.push_back(temp);
 
-Used for problems like Level Order / Zigzag.
+    ans.push_back(temp);
 
---------------------------------------------------
+This is useful for level order and zigzag traversal.
 
-ZIGZAG:
+---
 
-Normal:
-left → right
+## First and Last Node
 
-Next:
-right → left
+BFS processes a level from left to right.
 
-Collect the level in temp, then:
+First node:
 
-reverse(temp.begin(),temp.end());
+    if(i==0)
 
---------------------------------------------------
+Last node:
 
-WHEN TO THINK BFS:
+    if(i==n-1)
 
-- Level order
-- Each level / each row
-- Leftmost / rightmost node of a level
-- Maximum / minimum per level
-- Sum / average per level
-- Zigzag level order
+Therefore:
 
-Think:
+Leftmost → i==0
 
-BFS → queue
+Rightmost → i==n-1
 
-Level information → queue + n=q.size()
+---
 
---------------------------------------------------
-
-IMPORTANT EXCEPTION:
-
-Maximum Width of Binary Tree:
-
-n=q.size() is NOT enough because empty positions
-also matter.
-
-Use:
-node + position
-
---------------------------------------------------
-
-
-
-KEY THING TO REMEMBER:
+## Zigzag BFS
 
 Normal BFS:
-queue + while
 
-Level BFS:
-queue + while + n=q.size() + for
-*/
+left → right
+left → right
+left → right
+
+Zigzag:
+
+left → right
+right → left
+left → right
+
+Still use BFS.
+
+Collect the current level into temp, then reverse when required:
+
+    reverse(temp.begin(),temp.end());
+
+The BFS structure itself does not change.
+
+---
+
+## When n=q.size() Is NOT Needed
+
+If the problem does not care about individual levels:
+
+    queue<TreeNode*> q;
+
+    q.push(root);
+
+    while(!q.empty())
+    {
+        TreeNode* p=q.front();
+        q.pop();
+
+        // process p
+
+        if(p->left!=NULL)
+        {
+            q.push(p->left);
+        }
+
+        if(p->right!=NULL)
+        {
+            q.push(p->right);
+        }
+    }
+
+No n.
+
+No inner for loop.
+
+---
+
+## Empty Tree
+
+For problems returning a vector:
+
+    if(root==NULL)
+    {
+        return ans;
+    }
+
+This prevents putting NULL into the queue.
+
+---
+
+## BFS Decision
+
+When you see a tree problem:
+
+What is it asking?
+
+    Level / distance?
+        ↓
+       BFS
+
+If it needs information for each level:
+
+    BFS
+     ↓
+    n=q.size()
+     ↓
+    for(i=0;i<n;i++)
+
+Then decide what to calculate:
+
+    maximum → mx
+    minimum → mn
+    sum     → sum
+    count   → count
+    first   → i==0
+    last    → i==n-1
+    average → sum/n
+
+---
+
+## Important Exception
+
+Maximum Width of Binary Tree is different.
+
+Normal:
+
+    n=q.size();
+
+only counts actual nodes.
+
+For maximum width, empty positions also matter.
+
+So we may need to store:
+
+    node + position
+
+instead of only:
+
+    node
+
+This is an extension of BFS.
+
+---
+
+## Core Idea
+
+BFS = queue + breadth/level-wise exploration.
+
+If the problem cares about levels:
+
+BFS + n=q.size()
+
+If it cares about distance in an unweighted structure:
+
+BFS is often a strong choice.
+
+The queue controls the order in which nodes are explored.
