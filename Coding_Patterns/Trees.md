@@ -1,367 +1,327 @@
 # Trees
 
-# What is a Tree?
+## What is a Tree?
 
-A Tree is a non-linear data structure used to represent hierarchical relationships between data.
+A tree is a hierarchical data structure made of nodes connected by edges.
 
-Unlike an array or linked list, elements in a tree are connected through parent-child relationships.
+Unlike arrays/linked lists, a tree can branch into multiple nodes.
 
-Example
+Example:
 
-```
-        A
+        1
        / \
-      B   C
+      2   3
      / \
-    D   E
-```
+    4   5
 
 ---
 
-# Why Do We Need Trees?
+## Basic Terminology
 
-Arrays and linked lists store data linearly.
-
-```
-1 → 2 → 3 → 4 → 5
-```
-
-They tell us the order of elements but not their relationships.
-
-For example, if we want to represent a family tree,
-
-```
-        Grandpa
-        /     \
-     Dad      Uncle
-    /   \
- You   Sister
-```
-
-an array cannot naturally represent these parent-child connections.
-
-Trees solve this problem by storing links between nodes.
+- Root → topmost node of the tree.
+- Parent → node directly above another node.
+- Child → node directly below another node.
+- Leaf → node with no children.
+- Edge → connection between two nodes.
+- Subtree → a node together with all of its descendants.
+- Depth → number of edges from the root to a node.
+- Height → number of edges on the longest path from a node to a leaf.
 
 ---
 
-# Tree Terminology
+## Binary Tree
 
-## Node
+A binary tree is a tree where every node has at most two children:
 
-Each element of a tree is called a Node.
+- Left child
+- Right child
 
-Example
+Typical C++ representation:
 
-```
-        10
-       /  \
-      5    20
-```
+    struct TreeNode
+    {
+        int val;
+        TreeNode* left;
+        TreeNode* right;
+    };
 
-10, 5 and 20 are nodes.
+A node can have:
 
----
-
-# Root Node
-
-The topmost node of a tree.
-
-Every tree has exactly one root.
-
-```
-        10
-       /  \
-      5    20
-```
-
-Root = 10
+- 0 children → leaf
+- 1 child
+- 2 children
 
 ---
 
-# Parent and Child
+## Binary Tree vs BST
 
-If a node is directly connected to another node below it,
+### Binary Tree
 
-the upper node is the Parent,
+Only restriction:
 
-the lower node is the Child.
+Each node has at most 2 children.
 
-```
-      10
-     /
-    5
-```
+There is no ordering requirement.
 
-Parent of 5 = 10
+### Binary Search Tree (BST)
 
-Child of 10 = 5
+A BST follows an ordering rule:
 
----
+left subtree < root < right subtree
 
-# Leaf Node
+Example:
 
-A node with no children.
+        8
+       / \
+      3   10
+     / \    \
+    1   6    14
 
-```
-        10
-       /  \
-      5    20
-     /
-    2
-```
-
-Leaf Nodes = 2, 20
+This ordering can be used to search efficiently.
 
 ---
 
-# Binary Tree
+## Tree Traversal
 
-A Binary Tree is a tree in which every node can have at most two children.
+Traversal means visiting the nodes of a tree in a systematic order.
 
-```
-        10
-       /  \
-      5    20
-```
+### DFS — Depth First Search
 
-Children are usually called
+Go deeper into a branch before coming back.
 
-- Left Child
-- Right Child
+Common recursive traversals:
 
----
+Preorder  → Root → Left → Right
 
-# Representation in C++
+Inorder   → Left → Root → Right
 
-```cpp
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-};
-```
+Postorder → Left → Right → Root
 
-Every TreeNode stores
+### BFS — Breadth First Search
 
-- Value
-- Pointer to left child
-- Pointer to right child
+Visit nodes level by level.
+
+DFS and BFS are general traversal techniques and are not limited to trees.
 
 ---
 
-# Why Are left and right Pointers?
+## Recursive Thinking in Trees
 
-Suppose we write
+Trees are naturally recursive because every node can be viewed as:
 
-```cpp
-TreeNode left;
-```
+Current node
++
+Left subtree
++
+Right subtree
 
-inside the structure.
+Common structure:
 
-Now every TreeNode would contain another complete TreeNode.
+    if(p==NULL)
+    {
+        return;
+    }
 
-That new TreeNode would again contain another TreeNode.
+    solve(p->left);
+    solve(p->right);
 
-This process would continue forever.
+The base case usually handles p==NULL.
 
-To avoid infinite nesting, we store only the memory address of the child node.
-
-```cpp
-TreeNode *left;
-TreeNode *right;
-```
-
-A pointer stores only the address of another TreeNode.
-
----
-
-# Pointer Meaning
-
-```cpp
-TreeNode *root;
-```
-
-Creates only a pointer variable.
-
-No TreeNode exists yet.
+Then the current node is processed and the smaller subtrees are solved recursively.
 
 ---
 
-```cpp
-TreeNode root;
-```
+## How to Approach a Tree Problem
 
-Creates one TreeNode object.
+Before coding, ask:
 
----
+### 1. What is the problem asking?
 
-```cpp
-new TreeNode();
-```
+Examples:
 
-Creates one TreeNode object on the heap and returns its memory address.
+- level / distance
+- path
+- height / depth
+- subtree
+- search
+- maximum / minimum
+- sum
 
----
+### 2. What traversal fits naturally?
 
-```cpp
-TreeNode *root = new TreeNode();
-```
+Levels / distance → BFS is often natural.
 
-Creates
+Paths / subtrees / recursive relationships → DFS is often natural.
 
-- one pointer variable (`root`)
-- one TreeNode object
+This is not a strict rule. Many tree problems can be solved using either approach.
 
-The pointer stores the address of the TreeNode.
+### 3. What information needs to move through the traversal?
 
----
+Examples:
 
-# Stack vs Heap
+- remaining target
+- current sum
+- current number
+- maximum seen so far
+- current path
+- level information
 
-Local variables are stored on the Stack.
-
-Example
-
-```cpp
-TreeNode root;
-```
-
-The object is automatically destroyed when the function ends.
+That information becomes part of the recursive state or traversal state.
 
 ---
 
-Objects created using
+## Helper Functions in Tree Problems
 
-```cpp
-new TreeNode();
-```
+A helper function is useful when the recursive process needs something that the main function does not naturally provide.
 
-are stored on the Heap.
+For example:
 
-They continue to exist until explicitly deleted.
+    void dfs(TreeNode* p,int target)
+
+Here:
+
+p → current node
+
+target → extra state needed during recursion
+
+Before creating a helper, ask:
+
+Can the recursive function work using only the parameters I already have?
+
+If yes, a separate helper may not be necessary.
+
+If extra state is needed, a helper can carry it.
 
 ---
 
-# The Arrow Operator (->)
+## Choosing the Helper Return Type
 
-The arrow operator accesses a member of the object pointed to by a pointer.
+After deciding that a helper is needed, ask:
 
-```cpp
-root->val
-```
+What does the caller need back from the recursive call?
 
-is exactly the same as
+YES / NO
+→ bool
 
-```cpp
-(*root).val
-```
+A number
+→ int
 
-Example
+A node
+→ TreeNode*
 
-```cpp
-root->left->right->val
-```
+Nothing
+→ void
 
-Mental Model
+Examples:
 
-```
-Start at root
+"Does this subtree contain it?"
+→ bool
 
+"What is the height of this subtree?"
+→ int
+
+"Which node did you find?"
+→ TreeNode*
+
+"Just explore and update the answer."
+→ void
+
+---
+
+## Parameters of a Recursive Helper
+
+The parameters should represent the information required to solve the smaller version of the problem.
+
+Common examples:
+
+TreeNode* p
+→ current node
+
+int target
+→ remaining target
+
+int sum
+→ current sum
+
+int num
+→ number formed so far
+
+vector<int>& path
+→ current path
+
+int mx
+→ maximum value seen so far
+
+Important question:
+
+"What information must travel with me as I go deeper?"
+
+---
+
+## Common Tree Problem Patterns
+
+### 1. Simple Recursive Tree Problem
+
+Current node
 ↓
-
-Follow left pointer
-
+Solve left subtree
 ↓
-
-Follow right pointer
-
+Solve right subtree
 ↓
+Combine/use results
 
-Read val
-```
+### 2. Path Problem
 
-Every `->` means:
+Move down the tree
+↓
+Carry current path/state
+↓
+Reach leaf
+↓
+Check condition
 
-**Follow the pointer, then access a member.**
+May require backtracking when using a shared path.
+
+### 3. Level Problem
+
+Use BFS
+↓
+Process one level
+↓
+Calculate required information
+
+### 4. BST Problem
+
+Use the ordering property:
+
+left < root < right
+
+This can allow us to avoid exploring unnecessary parts of the tree.
 
 ---
 
-# Multiple Pointers
+## Key Mental Model
 
-```cpp
-TreeNode *root = new TreeNode();
+When you see a tree problem:
 
-TreeNode *p = root;
-```
-
-No new TreeNode is created.
-
-Only another pointer is created.
-
-Both pointers store the same memory address.
-
-Changing the node through one pointer affects the same node.
+TREE
+↓
+What is being asked?
+↓
+Choose traversal / technique
+↓
+What information must be carried?
+↓
+Do I need a helper?
+↓
+If yes:
+    What parameters?
+    What return type?
+↓
+Solve current node + smaller subtrees
 
 ---
 
-# Mental Model
+## Core Idea to Remember
 
-Whenever you see
-
-```cpp
-root->left->right->left->val
-```
-
-Think
-
-```
-Start from root
-
-↓
-
-Go to left child
-
-↓
-
-Go to right child
-
-↓
-
-Go to left child
-
-↓
-
-Read value
-```
-
-Do not memorize the syntax.
-
-Always visualize moving from one node to another using pointers.
-
----
-
-# Key Takeaways
-
-✔ Trees represent hierarchical relationships.
-
-✔ Every node stores a value and links to its children.
-
-✔ `TreeNode *left` stores an address, not a complete node.
-
-✔ `TreeNode *root;` creates only a pointer.
-
-✔ `new TreeNode()` creates a TreeNode on the heap.
-
-✔ `->` means follow the pointer and access a member.
-
-✔ Multiple pointers can point to the same TreeNode.
-
-✔ Always visualize memory instead of memorizing syntax.
-
----
-
-Status
-
-🟨 In Progress
+A tree problem is usually about deciding what information you need from the current node, its left subtree, and its right subtree — and how that information should move through the tree.
