@@ -410,6 +410,29 @@ Then ask:
 
 ---
 
+DFS + Path
+
+When the problem asks for root-to-leaf paths:
+
+    carry the current path downward
+        ↓
+    reach a leaf
+        ↓
+    save the path
+
+The path can be passed as a parameter:
+
+    dfs(node,path)
+
+If using a shared vector/string:
+    add current node
+    explore
+    remove current node
+
+If passing `path` by value:
+    each recursive call gets its own copy,
+    so explicit backtracking is not required.
+
 ## Core Idea
 
 DFS = depth-first exploration.
