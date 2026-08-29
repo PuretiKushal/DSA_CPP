@@ -409,6 +409,22 @@ Then ask:
        No  → void/shared result
 
 ---
+## DFS Direction of Information
+
+A useful way to think about recursive DFS:
+
+### Information going DOWN
+
+Parent → Child
+
+Use parameters.
+
+Example:
+
+```cpp
+void dfs(TreeNode* p,int mx)
+
+---
 
 DFS + Path
 
