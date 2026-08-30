@@ -27,6 +27,66 @@ Example:
 - Depth → number of edges from the root to a node.
 - Height → number of edges on the longest path from a node to a leaf.
 
+
+## Height vs Depth
+
+### Depth
+
+Depth tells us how far a node is from the root.
+
+Root:
+
+    depth = 0
+
+Each edge going downward increases depth by 1.
+
+### Height
+
+Height tells us how far a node is from its deepest leaf.
+
+Leaf:
+
+    height = 0
+
+For a node:
+
+    height = 1 + max(left height,right height)
+
+### Example
+
+        1
+       / \
+      2   3
+     /
+    4
+
+Depth:
+
+    1 → 0
+    2 → 1
+    4 → 2
+
+Height:
+
+    4 → 0
+    2 → 1
+    1 → 2
+
+### Important
+
+Depth is measured from:
+
+    Root → Node
+
+Height is measured from:
+
+    Node → Deepest Leaf
+
+In recursive DFS problems, we commonly calculate height
+because the information can be returned from the children
+back to the parent.
+
+
 ---
 
 ## Binary Tree
