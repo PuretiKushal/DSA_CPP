@@ -34,6 +34,26 @@ Node* insert(Node* root,int x)
     return root;             // Return the current root of this subtree
 }
 
+bool search(Node* root,int x)
+{
+    if(root==NULL)
+    {
+        return false;
+    }
+
+    if(root->data==x)
+    {
+        return true;
+    }
+
+    if(x<root->data)
+    {
+        return search(root->left,x);
+    }
+
+    return search(root->right,x);
+}
+
 int main()
 {
     int n,x;                 // n = number of values, x = current value
@@ -46,5 +66,10 @@ int main()
         cin>>x;              // Read the current value
         root=insert(root,x); // Insert it and keep the root pointer updated
     }
+
+    cout << search(root,3) << endl;
+    cout << search(root,10) << endl;
+
+    cout << "Binary Search Tree created successfully." << endl; // Confirmation message
     return 0;
 }
