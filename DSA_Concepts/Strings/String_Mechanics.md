@@ -1,26 +1,28 @@
 # String Mechanics
 
-## 1. String View / Access
+## 1. String Access & View
 
 string s="hello";
 
 cout<<s[0];              // Access character at index 0
-cout<<s.substr(1,3);     // Get part of a string
+cout<<s.substr(1,3);     // Get a substring starting at index 1 with length 3
 
 // String indexing starts from 0.
+// Strings can be accessed and modified using s[i].
 
 
 ## 2. Pass-by-Reference
 
-### What is Pass-by-Reference?
+### Basic Idea
 
 void change(string &s)
 {
     s[0]='A';
 }
 
-// '&' makes s refer to the original string.
-// Changes made to s inside the function affect the original string.
+// '&' makes s a reference to the original string.
+// No copy of the string is created.
+// Changes made to s affect the original string.
 
 
 ### Pass-by-Reference vs Pass-by-Value
@@ -30,25 +32,23 @@ void change(string s)
     s[0]='A';
 }
 
-// A copy of the string is created.
-// Changes do NOT affect the original string.
+// Pass-by-value creates a copy.
+// Changes do NOT affect the original string, it only alters the created copy.
 
 void change(string &s)
 {
     s[0]='A';
 }
 
-// No copy is created.
+// Pass-by-reference works directly with the original.
 // Changes DO affect the original string.
 
 
 ### Why '&' Matters in DSA
 
-// Consider a large vector:
-
 void solve(vector<int> &a)
 {
-    // Work directly on the original vector
+    // Works directly on the original vector
 }
 
 // Without '&':
@@ -58,38 +58,44 @@ void solve(vector<int> a)
     // A copy of the entire vector is created.
 }
 
-// Passing large arrays/vectors by value can cause unnecessary O(n) copying.
-// Passing by reference avoids that copy.
+// Passing large vectors/strings by value can cause O(n) copying.
+// Passing by reference avoids this unnecessary copy.
 
 
 ### Read-Only Reference
 
-void print(string const &s)
+void print(const string &s)
 {
     cout<<s;
 }
 
 // const & means:
 // - No copy is created.
-// - Original string cannot be modified inside the function.
+// - The original object cannot be modified.
+// - Useful when a function only needs to read the data.
 
 
-// Common forms:
+### Common Forms
 
-void solve(vector<int> &a)       // Modify original
-void solve(const vector<int> &a) // Read original without copying
-void solve(vector<int> a)        // Make a copy
+void solve(vector<int> &a)        // Modify original vector
+void solve(const vector<int> &a)  // Read without copying
+void solve(vector<int> a)        // Create a copy
+
+void solve(string &s)             // Modify original string
+void solve(const string &s)       // Read without copying
+void solve(string s)              // Create a copy
 
 
-### Reference and Original Variable
+### Reference Variable
 
 int x=10;
 int &y=x;
 
 y=20;
 
+// y is another name for x.
+// Changing y also changes x.
 // x is now 20.
-// y is another name (reference) for x.
 
 
 ### Reference with Characters
@@ -99,7 +105,7 @@ void change(string &s)
     s[0]='x';
 }
 
-// Original string is modified.
+// Original string is modified because s is a reference.
 
 
 ### Reference with Vectors
@@ -130,55 +136,79 @@ void reverse(string &s)
 // The string is passed by reference because we modify it directly.
 
 
-### Important DSA Pattern
+### Key Rule
 
-// Whenever a function needs to modify the original:
-//     vector<int> &a
-//     string &s
-//
-// Whenever a function only needs to read a large object:
-//     const vector<int> &a
-//     const string &s
-//
-// Passing without '&':
-//     vector<int> a
-//     string s
-// creates a copy.
+// Modify original → use &
+// Read large object without copying → use const &
+// Need an independent copy → pass by value
 
 
 ## 3. starts_with()
 
 string s="leetcode";
 
-s.starts_with("leet");   // true
-s.starts_with("code");   // false
+s.starts_with("leet");  // true
+s.starts_with("code");  // false
 
-// Checks whether a string begins with the given prefix.
+// Checks whether a string starts with the given prefix.
 
 
 ## 4. compare()
 
 string s="apple";
 
-s.compare("apple");      // 0 → strings are equal
-s.compare("banana");     // non-zero → strings are different
+s.compare("apple");     // 0 → strings are equal
+s.compare("banana");    // non-zero → strings are different
 
 // compare() returns 0 when both strings are equal.
 
 
-## 5. Two Pointers — Basic Idea
+## 5. ASCII Character Manipulation
+
+// Lowercase letters have consecutive ASCII values:
+//
+// 'a' → 97
+// 'b' → 98
+// ...
+// 'z' → 122
+
+s[i]-'a';               // Convert lowercase character to index 0-25
+
+// Example:
+// 'a'-'a' → 0
+// 'b'-'a' → 1
+// 'z'-'a' → 25
+
+
+## 6. Fixed Frequency Array
+
+int f[26]={0};
+
+for(int i=0;i<s.size();i++)
+{
+    f[s[i]-'a']++;      // Count frequency of each lowercase character
+}
+
+// f[0] → frequency of 'a'
+// f[1] → frequency of 'b'
+// ...
+// f[25] → frequency of 'z'
+
+
+## 7. Two Pointers on Strings
 
 int l=0;
 int r=s.size()-1;
 
 while(l<r)
 {
-    // Use s[l] and s[r]
+    // Process s[l] and s[r]
 
     l++;
     r--;
 }
 
-// Two pointers use two indices to process different positions.
-// A common example is comparing elements from both ends.
+// Two pointers use two indices to process different positions of the same string.
+// Commonly used when comparing or modifying characters from both ends.
+
 
