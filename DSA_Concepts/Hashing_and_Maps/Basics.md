@@ -11,20 +11,19 @@ Hashing is the process of mapping arbitrary data (Keys) to fixed-size values (In
 
 | Operation | `unordered_map` (Average) | `unordered_map` (Worst Case) | `map` (Always) |
 | :--- | :--- | :--- | :--- |
-| **Insertion** | $O(1)$ | $O(N)$ | $O(\log N)$ |
-| **Deletion** | $O(1)$ | $O(N)$ | $O(\log N)$ |
-| **Search / Lookup** | $O(1)$ | $O(N)$ | $O(\log N)$ |
-| **Space Complexity**| $O(N)$ | $O(N)$ | $O(N)$ |
+| **Insertion** | O(1) | O(N) | O(log N) |
+| **Deletion** | O(1) | O(N) | O(log N) |
+| **Search / Lookup** | O(1) | O(N) | O(log N) |
+| **Space Complexity**| O(N) | O(N) | O(N) |
 
-> ⚠️ **Interview Warning:** The worst-case $O(N)$ for `unordered_map` occurs due to **Hash Collisions** (when multiple keys map to the same bucket). If an online assessment test case explicitly triggers this, switch to a ordered `map` to secure a guaranteed $O(\log N)$ runtime.
+> ⚠️ **Interview Warning:** The worst-case O(N) for `unordered_map` occurs due to **Hash Collisions** (when multiple keys map to the same bucket). If an online assessment test case explicitly triggers this, switch to a ordered `map` to secure a guaranteed O(log N) runtime.
 
 ---
 
 ## 3. Basic Syntax Template
 
 ```cpp
-#include <iostream>
-#include <unordered_map>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
@@ -51,7 +50,7 @@ int main() {
 ---
 
 ## 4. The `mp[key]` Behavior Trap
-Accessing a key using brackets `mp[key]` does **not** just read data. If the key does not exist in the map, C++ will **automatically insert the key** with a default value (`0` for integers, empty string for strings).
+Accessing a key using brackets `mp[key]` does **not** just read data. If the key does not exist in the map, C++ will **automatically insert the key** with a default value (`0` for integers, empty string for strings). So, to find if a key exists or not, use .find() or .count().
 
 ```cpp
 unordered_map<int, int> mp;
