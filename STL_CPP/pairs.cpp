@@ -15,7 +15,15 @@ void explainPair()
     {
         cout << " " << a[i].first << "," << a[i].second << " ";
     }
-}
+    //so to create multiple pairs we can use vector of pairs
+
+    //sorting a vector of pair
+    vector<pair<int,int>> p2={{1,2},{23,40},{4,5}};
+    sort(p2.begin(),p2.end()); //sorts the vector of pairs in asceding order based on first element of pair
+    sort(p2.begin(),p2.end(),[](auto x, auto y){
+        return x.second<y.second;
+    }); //sorts the vector of pairs in asceding order based on second element of pair
+}   
 int main()
 {
     explainPair();
