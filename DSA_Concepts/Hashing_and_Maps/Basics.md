@@ -75,6 +75,11 @@ for (auto& [key, value] : items) {
     cout << key << " -> " << value << endl;
 }
 
+for(auto x:items)
+{
+    cout << "key:" << x.first << "value:" << x.second << endl; 
+}
+
 // Classical Iterator approach
 for (auto it = items.begin(); it != items.end(); it++) {
     cout << it->first << " -> " << it->second << endl;
