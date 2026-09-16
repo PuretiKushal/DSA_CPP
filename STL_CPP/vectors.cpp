@@ -34,6 +34,13 @@ void explainVector()
     //To insert an element at a particular position:
     v1.insert(v1.begin()+2,15); //inserts 15 at position begin+2
 
+     //sorting a vector of pair
+    vector<pair<int,int>> p2={{1,2},{23,40},{4,5}};
+    sort(p2.begin(),p2.end()); //sorts the vector of pairs in asceding order based on first element of pair
+    sort(p2.begin(),p2.end(),[](auto x, auto y){
+        return x.second<y.second;
+    }); //sorts the vector of pairs in asceding order based on second element of pair
+
     //To concatenate two vectors:
     //let them be a1 and a2 and we want to create a new vector ans, which is concatenation of a1 and a2
     ans=a1; //copying a1 into ans
