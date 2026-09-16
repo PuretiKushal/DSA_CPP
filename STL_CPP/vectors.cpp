@@ -43,8 +43,8 @@ void explainVector()
 
     //To concatenate two vectors:
     //let them be a1 and a2 and we want to create a new vector ans, which is concatenation of a1 and a2
-    ans=a1; //copying a1 into ans
-    ans.insert(ans.end(),a2.begin(),a2.end()); //inserts a2 at the end of ans
+    vector<int>ans=v1; //copying a1 into ans
+    ans.insert(ans.end(),v2.begin(),v2.end()); //inserts a2 at the end of ans
 }
 int main()
 {
