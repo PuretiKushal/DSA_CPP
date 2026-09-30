@@ -42,9 +42,9 @@ Common keywords:
 
 ### 1. Opposite Direction
 
-```text
+
 l ->           <- r
-```
+
 
 Used for:
 
@@ -59,15 +59,16 @@ Rules:
 
 * If current value is too small → move left pointer.
 * If current value is too large → move right pointer.
+(Moving the pointers to decrease/increase the value is only valid if the array is sorted, if not, sort it beforehand.)
 
 ---
 
 ### 2. Same Direction
 
-```text
+
 l ->
      r ->
-```
+
 
 Used when both pointers move forward.
 
@@ -81,7 +82,7 @@ Examples:
 
 # General Template (Opposite Direction)
 
-```cpp
+
 sort(a.begin(),a.end());
 
 l=0;
@@ -191,24 +192,4 @@ O(n³)
 
 ---
 
-# Problems Completed
 
-### Easy
-
-* 125. Valid Palindrome
-* 392. Is Subsequence
-* 977. Squares of a Sorted Array
-
-### Medium
-
-* 167. Two Sum II
-* 11. Container With Most Water
-* 15. 3Sum
-* 16. 3Sum Closest
-* 18. 4Sum
-* 1679. Max Number of K-Sum Pairs
-* 881. Boats to Save People
-
-### Hard
-
-* 42. Trapping Rain Water
