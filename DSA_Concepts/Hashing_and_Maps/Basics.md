@@ -86,9 +86,3 @@ for (auto it = items.begin(); it != items.end(); it++) {
 }
 ```
 
----
-
-## 6. Common Interview Patterns
-1. **Frequency Counting:** Tracking occurrences of items (`mp[element]++`).
-2. **Complement Tracking (Two-Sum):** Checking if `Target - Current_Element` exists in the map from past history.
-3. **Index Storage:** Storing the index where an item was last seen to calculate subarray metrics.
