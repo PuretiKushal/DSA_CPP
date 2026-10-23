@@ -78,6 +78,7 @@ dp[i]=dp[i-1]+dp[i-2];
 # 3. What is a DP State?
 
 The **state** describes exactly what a subproblem represents.
+It is basically the information needed at that point to solve the substate.
 
 Ask:
 
