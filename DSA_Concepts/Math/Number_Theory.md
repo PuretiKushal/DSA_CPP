@@ -10,29 +10,21 @@ primes, factors, divisibility, GCD, LCM, modular arithmetic, and powers.
 
 If `a` divides `b`, we write:
 
-```text
-a | b
-````
+b%a==0
 
 This means `b` is completely divisible by `a`.
 
 Example:
 
-```text
-3 | 12
-```
+12/3
 
 because:
 
-```text
 12 % 3 = 0
-```
 
 If:
 
-```cpp
 b % a == 0
-```
 
 then `a` is a divisor/factor of `b`.
 
@@ -46,10 +38,8 @@ A factor of `n` is a number that divides `n` exactly.
 
 Example:
 
-```text
 Factors of 12:
 1, 2, 3, 4, 6, 12
-```
 
 ### Multiple
 
@@ -57,18 +47,14 @@ A multiple of `n` is obtained by multiplying `n` by an integer.
 
 Example:
 
-```text
 Multiples of 5:
 5, 10, 15, 20, 25, ...
-```
 
 Relationship:
 
-```text
 If a divides b,
 then a is a factor of b
 and b is a multiple of a.
-```
 
 ---
 
