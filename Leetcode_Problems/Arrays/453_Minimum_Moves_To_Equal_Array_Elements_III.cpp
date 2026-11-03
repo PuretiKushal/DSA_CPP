@@ -1,5 +1,5 @@
 /*
-Problem: 453. Minimum Moves to Equal Array Elements
+Problem: 453. Minimum Moves to Equal Array Elements III
 Pattern: Array 
 Difficulty: Medium
 
