@@ -4,8 +4,8 @@
 
 string s="hello";
 
-cout<<s[0];              // Access character at index 0
-cout<<s.substr(1,3);     // Get a substring starting at index 1 with length 3
+cout << s[0];              // Access character at index 0
+cout << s.substr(1,3);     // Get a substring starting at index 1 with length 3 i.e substring of length 3 starting from index 1
 
 // String indexing starts from 0.
 // Strings can be accessed and modified using s[i].
