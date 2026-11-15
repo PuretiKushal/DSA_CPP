@@ -86,3 +86,41 @@ for (auto it = items.begin(); it != items.end(); it++) {
 }
 ```
 
+
+## 6. Custom Sorting in Maps
+
+### 6.1. Default Map Sorting
+- `map` automatically stores elements in ascending order of keys.
+- `unordered_map` does not maintain any particular order.
+- We cannot directly sort a map based on its values.
+
+### 6.2. Sorting Map Entries by Values
+
+To sort map entries based on values, transfer them into a vector of pairs and use a custom comparator.
+
+**Example:** Sort characters by frequency in descending order. If frequencies are equal, sort characters in ascending order.
+
+```cpp
+map<char,int> mp;
+vector<pair<char,int>> v(mp.begin(),mp.end());
+
+sort(v.begin(),v.end(),[](auto x,auto y)
+{
+    if(x.second==y.second)
+    {
+        return x.first<y.first;
+    }
+    return x.second>y.second;
+});
+```
+
+### 6.3. Important Points
+- `x.first` represents the key.
+- `x.second` represents the mapped value.
+- `mp.begin(), mp.end()` copies map entries into the vector.
+- Sorting the vector does not change the original map.
+- The same approach works with `unordered_map`.
+
+**Key Takeaway:** Maps sort by keys by default. To sort by values or apply custom ordering, convert the entries into a vector of pairs and sort using a comparator.
+
+
