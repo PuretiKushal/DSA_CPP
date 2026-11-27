@@ -9,7 +9,7 @@ Traversals:
 Time Complexity: O(n)
 (Every node is visited exactly once.)
 
-Space Complexity: O(h)
+Space Complexity: O(h) (h is the height of the tree)
 (Recursion uses the call stack up to the height of the tree.)
 */
 
